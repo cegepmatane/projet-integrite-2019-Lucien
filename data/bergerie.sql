@@ -41,7 +41,7 @@ ALTER TABLE joueur OWNER TO postgres;
 -- Name: mouton_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE mouton_id_seq
+CREATE SEQUENCE joueur_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -59,10 +59,31 @@ ALTER SEQUENCE mouton_id_seq OWNED BY joueur.id;
 
 
 
-ALTER TABLE ONLY joueur ALTER COLUMN id SET DEFAULT nextval('mouton_id_seq'::regclass);
+ALTER TABLE ONLY joueur ALTER COLUMN id SET DEFAULT nextval('joueur_id_seq'::regclass);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
+-- Table: public."Club"
+
+-- DROP TABLE public."Club";
+
+CREATE TABLE public."Club"
+(
+    id integer NOT NULL DEFAULT nextval('"Club_id_seq"'::regclass),
+    nom text COLLATE pg_catalog."default",
+    dirigeant text COLLATE pg_catalog."default",
+    adresse text COLLATE pg_catalog."default",
+    telephone text COLLATE pg_catalog."default",
+    id_carton integer NOT NULL,
+    CONSTRAINT "Club_pkey" PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Club"
+    OWNER to postgres;
