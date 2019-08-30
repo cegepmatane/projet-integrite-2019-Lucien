@@ -117,8 +117,10 @@ public class ControleurJoueur {
 		listeClubs.add(toto);
 
 		Club lulu = new Club();
-		toto.setNom("Lulu");
+		lulu.setNom("Lulu");
 		listeClubs.add(lulu);
+		// Fin Mockup
+
 		//TEST
 		this.vueEditerJoueur.afficheListeClub(listeClubs);
 		

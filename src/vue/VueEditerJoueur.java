@@ -25,11 +25,13 @@ public class VueEditerJoueur extends Scene {
 	protected Button actionEnregistrerJoueur = null;
 	
 	private int idJoueur = 0;
+	private GridPane grilleClubs = null;
 	
 	public VueEditerJoueur()  {
 		super(new VBox(), 400, 400);
 		VBox panneau = (VBox) this.getRoot();
 		GridPane grilleJoueur = new GridPane();
+		this.grilleClubs = new GridPane();
 				
 		this.actionEnregistrerJoueur = new Button("Enregistrer");
 		
@@ -63,6 +65,7 @@ public class VueEditerJoueur extends Scene {
 		panneau.getChildren().add(new Label("Editer un joueur")); // Todo : créer un sous-type de Label ou Text pour les titres
 		panneau.getChildren().add(grilleJoueur);
 		panneau.getChildren().add(this.actionEnregistrerJoueur);
+		panneau.getChildren().add(this.grilleClubs);
 	}
 	
 	public void afficherJoueur(Joueur joueur)
@@ -89,6 +92,11 @@ public class VueEditerJoueur extends Scene {
 	}
 
 	public void afficheListeClub(List<Club> listeClubs) {
-
+		int rangee = 0;
+		for (Club club :
+				listeClubs) {
+			System.out.println(club.getNom());
+			this.grilleClubs.add(new Label(club.getNom()), 0, rangee++);
+		}
 	}
 }
