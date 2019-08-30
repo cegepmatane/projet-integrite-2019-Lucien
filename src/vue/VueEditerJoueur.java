@@ -9,7 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import modele.Club;
 import modele.Joueur;
+
+import java.util.List;
 
 public class VueEditerJoueur extends Scene {
 
@@ -84,6 +87,8 @@ public class VueEditerJoueur extends Scene {
 	public void setControleur(ControleurJoueur controleur) {
 		this.controleur = controleur;
 	}
-	
 
+	public void afficheListeClub(List<Club> listeClubs) {
+
+	}
 }

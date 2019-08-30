@@ -1,8 +1,10 @@
 package action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import donnee.JoueurDAO;
+import modele.Club;
 import modele.Joueur;
 import vue.NavigateurDesVues;
 import vue.VueEditerJoueur;
@@ -105,6 +107,20 @@ public class ControleurJoueur {
 		// savoir par la vue liste quel numero de joueur a ete clique
 		this.vueEditerJoueur.afficherJoueur(this.joueurDAO.rapporterJoueur(idJoueur));
 		this.navigateur.naviguerVersVueEditerJoueur();
+
+
+		// Debut mockup
+		List<Club> listeClubs = new ArrayList<Club>();
+
+		Club toto = new Club();
+		toto.setNom("Toto");
+		listeClubs.add(toto);
+
+		Club lulu = new Club();
+		toto.setNom("Lulu");
+		listeClubs.add(lulu);
+		//TEST
+		this.vueEditerJoueur.afficheListeClub(listeClubs);
 		
 	}
 	
