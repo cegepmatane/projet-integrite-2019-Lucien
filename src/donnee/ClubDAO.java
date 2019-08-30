@@ -46,6 +46,31 @@ public class ClubDAO {
     }
 
     public List<Club> listerClubsParJoueurs(Joueur joueur) {
-        return null;
+        List<Club> listClub = new ArrayList<Club>();
+        Statement requeteListeClubs;
+
+        try {
+            requeteListeClubs = this.connection.createStatement();
+            ResultSet curseurClubs = requeteListeClubs.executeQuery("SELECT * FROM club WHERE id_joueur = " + joueur.getId());
+
+            while (curseurClubs.next()) {
+                Club club = new Club();
+                String nom = curseurClubs.getString("nom");
+                String dirigeant = curseurClubs.getString("dirigeant");
+                String adresse = curseurClubs.getString("adresse");
+                String telephone = curseurClubs.getString("telephone");
+
+                club.setNom(nom);
+                club.setDirigeant(dirigeant);
+                club.setAdresse(adresse);
+                club.setTelephone(telephone);
+
+                listClub.add(club);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listClub;
     }
 }
