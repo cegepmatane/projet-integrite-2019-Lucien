@@ -33,10 +33,11 @@ public class VueListeJoueur extends Scene {
 		for(Joueur joueur : listeJoueurs)
 		{
 			Button actionEditerJoueur = new Button("Editer");
+			actionEditerJoueur.setUserData(joueur.getId());
 			actionEditerJoueur.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
-				public void handle(ActionEvent a) {
-					controleur.notifierNaviguerEditerJoueur(joueur.getId()); // TODO ameliorer ceci pour respecter architecture cible = pas de parametre dans les notifications au controleur
+				public void handle(ActionEvent e) {
+					controleur.notifierNaviguerEditerJoueur((int)((Button)e.getSource()).getUserData());
 				}});
 			numero++;
 			this.grilleJoueurs.add(new Label(joueur.getNom()), 0, numero);

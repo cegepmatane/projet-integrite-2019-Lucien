@@ -92,6 +92,7 @@ public class VueEditerJoueur extends Scene {
 	}
 
 	public void afficheListeClub(List<Club> listeClubs) {
+		this.grilleClubs.getChildren().clear();
 		int rangee = 0;
 		for (Club club :
 				listeClubs) {

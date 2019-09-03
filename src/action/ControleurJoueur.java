@@ -3,6 +3,7 @@ package action;
 import java.util.ArrayList;
 import java.util.List;
 
+import donnee.ClubDAO;
 import donnee.JoueurDAO;
 import modele.Club;
 import modele.Joueur;
@@ -109,7 +110,7 @@ public class ControleurJoueur {
 		this.navigateur.naviguerVersVueEditerJoueur();
 
 
-		// Debut mockup
+		/* Debut mockup
 		List<Club> listeClubs = new ArrayList<Club>();
 
 		Club toto = new Club();
@@ -119,12 +120,16 @@ public class ControleurJoueur {
 		Club lulu = new Club();
 		lulu.setNom("Lulu");
 		listeClubs.add(lulu);
-		// Fin Mockup
+		*/
 
 		//TEST
-		this.vueEditerJoueur.afficheListeClub(listeClubs);
+		ClubDAO accesseurClub = new ClubDAO();
+		Joueur joueur1 = new Joueur("");
+		joueur1.setId(2);
+
+		List<Club> listeClub = accesseurClub.listerClubsParJoueurs(joueur1);
+
+		this.vueEditerJoueur.afficheListeClub(listeClub);
 		
 	}
-	
-	
 }

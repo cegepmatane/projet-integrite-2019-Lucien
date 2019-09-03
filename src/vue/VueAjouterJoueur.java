@@ -70,6 +70,4 @@ public class VueAjouterJoueur extends Scene {
 	public void setControleur(ControleurJoueur controleur) {
 		this.controleur = controleur;
 	}
-	
-
 }

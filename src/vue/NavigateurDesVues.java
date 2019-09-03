@@ -12,7 +12,9 @@ public class NavigateurDesVues extends Application{
 	private VueJoueur vueJoueur = null;
 	private VueAjouterJoueur vueAjouterJoueur = null;
 	private VueEditerJoueur vueEditerJoueur = null;
-	
+
+	private VueAjouterClub vueAjouterClub = null;
+
 	private ControleurJoueur controleur = null;
 	
 	public NavigateurDesVues() 
@@ -53,7 +55,15 @@ public class NavigateurDesVues extends Application{
 	public VueEditerJoueur getVueEditerJoueur(){
 		return this.vueEditerJoueur;
 	}
-	
+
+	public VueAjouterClub getVueAjouterClub() {
+		return vueAjouterClub;
+	}
+
+	public void setVueAjouterClub(VueAjouterClub vueAjouterClub) {
+		this.vueAjouterClub = vueAjouterClub;
+	}
+
 	public void naviguerVersVueJoueur() {
 		stade.setScene(this.vueJoueur);
 		stade.show();
@@ -75,6 +85,12 @@ public class NavigateurDesVues extends Application{
 	{
 		stade.setScene(this.vueEditerJoueur);
 		stade.show();				
+	}
+
+	public void naviguerVersVueAjouterClub()
+	{
+		stade.setScene(this.vueAjouterClub);
+		stade.show();
 	}
 	
 }
