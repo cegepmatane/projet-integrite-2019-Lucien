@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import modele.Club;
 import modele.Joueur;
 
 public class VueAjouterClub extends Scene {
@@ -26,12 +27,13 @@ public class VueAjouterClub extends Scene {
         GridPane grilleJoueur = new GridPane();
         this.actionEnregistrerJoueur = new Button("Enregistrer");
 
+
         this.actionEnregistrerJoueur.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent arg0) {
 
-                controleur.notifierEnregistrerNouveauJoueur();
+                controleur.notifierEnregistrerAjoutClub();
 
             }});
 
@@ -58,13 +60,13 @@ public class VueAjouterClub extends Scene {
         panneau.getChildren().add(this.actionEnregistrerJoueur);
     }
 
-    public Joueur demanderJoueur()
+    public Club demanderClub()
     {
-        Joueur joueur = new Joueur(this.valeurNom.getText(),
+        Club club = new Club(this.valeurNom.getText(),
                 this.valeurDirigeant.getText(),
                 this.valeurAdresse.getText(),
                 this.valeurTelephone.getText());
-        return joueur;
+        return club;
     }
 
     public void setControleur(ControleurJoueur controleur) {

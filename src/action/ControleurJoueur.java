@@ -139,4 +139,17 @@ public class ControleurJoueur {
 		this.vueEditerJoueur.afficheListeClub(listeClub);
 		
 	}
+
+	public void notifierNaviguerAjouterClub() {
+	    this.navigateur.naviguerVersVueAjouterClub();
+    }
+
+	public void notifierEnregistrerAjoutClub() {
+        System.out.println("ControleurRobot.notifierEnregistrerAjoutClub()");
+	    Club club = this.navigateur.getVueAjouterClub().demanderClub();
+        System.out.println(club.getNom());
+
+	    ClubDAO clubDAO = new ClubDAO();
+	    clubDAO.ajouterClub(club);
+    }
 }

@@ -73,4 +73,8 @@ public class ClubDAO {
 
         return listClub;
     }
+
+    public void ajouterClub(Club club) {
+
+    }
 }

@@ -39,6 +39,7 @@ public class NavigateurDesVues extends Application{
 		this.vueJoueur.setControleur(controleur);
 		this.vueAjouterJoueur.setControleur(controleur);
 		this.vueEditerJoueur.setControleur(controleur);
+		this.vueAjouterClub.setControleur(controleur);
 	}	
 	
 	public VueListeJoueur getVueListeJoueur() {

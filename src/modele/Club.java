@@ -7,6 +7,17 @@ public class Club {
     protected String adresse;
     protected String telephone;
 
+    public Club() {
+
+    }
+
+    public Club(String nom, String dirigeant, String adresse, String telephone) {
+        this.nom = nom;
+        this.dirigeant = dirigeant;
+        this.adresse = adresse;
+        this.telephone = telephone;
+    }
+
     public String getNom() {
         return nom;
     }

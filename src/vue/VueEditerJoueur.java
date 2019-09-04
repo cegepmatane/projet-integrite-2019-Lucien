@@ -23,6 +23,7 @@ public class VueEditerJoueur extends Scene {
 	
 	private ControleurJoueur controleur = null;
 	protected Button actionEnregistrerJoueur = null;
+	protected Button actionAjouterClub = null;
 	
 	private int idJoueur = 0;
 	private GridPane grilleClubs = null;
@@ -34,7 +35,8 @@ public class VueEditerJoueur extends Scene {
 		this.grilleClubs = new GridPane();
 				
 		this.actionEnregistrerJoueur = new Button("Enregistrer");
-		
+		this.actionAjouterClub = new Button("Ajouter un club");
+
 		this.actionEnregistrerJoueur.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -43,7 +45,15 @@ public class VueEditerJoueur extends Scene {
 				controleur.notifierEnregistrerJoueur();
 				
 			}});
-		
+
+		this.actionAjouterClub.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+
+				controleur.notifierNaviguerAjouterClub();
+
+			}});
 		// https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
 		valeurNom = new TextField();
 		grilleJoueur.add(new Label("Nom : "), 0, 0);
@@ -65,6 +75,7 @@ public class VueEditerJoueur extends Scene {
 		panneau.getChildren().add(new Label("Editer un joueur")); // Todo : créer un sous-type de Label ou Text pour les titres
 		panneau.getChildren().add(grilleJoueur);
 		panneau.getChildren().add(this.actionEnregistrerJoueur);
+		panneau.getChildren().add(this.actionAjouterClub);
 		panneau.getChildren().add(this.grilleClubs);
 	}
 	
