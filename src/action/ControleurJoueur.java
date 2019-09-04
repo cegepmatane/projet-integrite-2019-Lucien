@@ -7,16 +7,17 @@ import donnee.ClubDAO;
 import donnee.JoueurDAO;
 import modele.Club;
 import modele.Joueur;
-import vue.NavigateurDesVues;
-import vue.VueEditerJoueur;
-import vue.VueListeJoueur;
-import vue.VueJoueur;
+import vue.*;
 
 public class ControleurJoueur {
+
+	private ClubDAO accesseurClub = new ClubDAO();
 	
 	private NavigateurDesVues navigateur;
 	private VueListeJoueur vueListeJoueur = null;
 	private VueJoueur vueJoueur = null;
+
+	private VueAjouterClub vueAjouterClub;
 	//private VueAjouterJoueur vueAjouterJoueur = null;
 	private VueEditerJoueur vueEditerJoueur = null;
 	private JoueurDAO joueurDAO = null;
@@ -34,6 +35,7 @@ public class ControleurJoueur {
 		this.vueJoueur = navigateur.getVueJoueur();
 		this.vueListeJoueur = navigateur.getVueListeJoueur();
 		this.vueEditerJoueur = navigateur.getVueEditerJoueur();
+		this.vueAjouterClub = navigateur.getVueAjouterClub();
 						
 		//// TEST ////
 		Joueur joueur = new Joueur("Dolly", "Grise", "20 kg", "5 juin 2015");
@@ -50,6 +52,8 @@ public class ControleurJoueur {
 		//this.navigateur.naviguerVersVueAjouterJoueur();
 		
 		//this.vueEditerJoueur.afficherListeDistinction(this.distinctionDAO.listerDistinctions());
+
+		//this.naviguerVersVueAjouterClub();
 		
 	}
 	
@@ -106,6 +110,7 @@ public class ControleurJoueur {
 	{
 		System.out.println("ControleurJoueur.notifierEditerJoueur("+idJoueur+")");
 		// savoir par la vue liste quel numero de joueur a ete clique
+		Joueur joueur = this.joueurDAO.rapporterJoueur(idJoueur);
 		this.vueEditerJoueur.afficherJoueur(this.joueurDAO.rapporterJoueur(idJoueur));
 		this.navigateur.naviguerVersVueEditerJoueur();
 
@@ -122,12 +127,14 @@ public class ControleurJoueur {
 		listeClubs.add(lulu);
 		*/
 
-		//TEST
+		/*TEST
 		ClubDAO accesseurClub = new ClubDAO();
 		Joueur joueur1 = new Joueur("");
 		joueur1.setId(2);
 
-		List<Club> listeClub = accesseurClub.listerClubsParJoueurs(joueur1);
+		 */
+
+		List<Club> listeClub = accesseurClub.listerClubsParJoueurs(joueur);
 
 		this.vueEditerJoueur.afficheListeClub(listeClub);
 		

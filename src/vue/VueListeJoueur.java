@@ -37,6 +37,7 @@ public class VueListeJoueur extends Scene {
 			actionEditerJoueur.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
+					System.out.println("user data" + (int)((Button)e.getSource()).getUserData());
 					controleur.notifierNaviguerEditerJoueur((int)((Button)e.getSource()).getUserData());
 				}});
 			numero++;

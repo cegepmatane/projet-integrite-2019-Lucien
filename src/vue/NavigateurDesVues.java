@@ -23,6 +23,7 @@ public class NavigateurDesVues extends Application{
 		this.vueJoueur = new VueJoueur();
 		this.vueAjouterJoueur = new VueAjouterJoueur();
 		this.vueEditerJoueur = new VueEditerJoueur();
+		this.vueAjouterClub = new VueAjouterClub();
 	}
 
 	@Override
