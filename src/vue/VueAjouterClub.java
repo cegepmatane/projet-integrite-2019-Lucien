@@ -17,6 +17,7 @@ public class VueAjouterClub extends Scene {
     protected TextField valeurDirigeant;
     protected TextField valeurAdresse;
     protected TextField valeurTelephone;
+    protected TextField valeurIdJoueur;
 
     private ControleurJoueur controleur = null;
     protected Button actionEnregistrerJoueur = null;
@@ -65,7 +66,8 @@ public class VueAjouterClub extends Scene {
         Club club = new Club(this.valeurNom.getText(),
                 this.valeurDirigeant.getText(),
                 this.valeurAdresse.getText(),
-                this.valeurTelephone.getText());
+                this.valeurTelephone.getText()
+        );
         return club;
     }
 

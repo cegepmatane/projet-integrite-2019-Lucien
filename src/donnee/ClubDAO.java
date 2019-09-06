@@ -3,10 +3,7 @@ package donnee;
 import modele.Club;
 import modele.Joueur;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +72,19 @@ public class ClubDAO {
     }
 
     public void ajouterClub(Club club) {
+        PreparedStatement requeteAjouterConcepteur = null;
+        try {
+            requeteAjouterConcepteur = connection.prepareStatement("INSERT INTO club(nom, dirigeant, adresse, telephone, id_joueur)" +
+                    "VALUES (?,?,?,?,?)");
+            requeteAjouterConcepteur.setString(1, club.getNom());
+            requeteAjouterConcepteur.setString(2, club.getDirigeant());
+            requeteAjouterConcepteur.setString(3, club.getAdresse());
+            requeteAjouterConcepteur.setString(4, club.getTelephone());
+            requeteAjouterConcepteur.setInt(5, club.getId_joueur());
 
+            requeteAjouterConcepteur.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

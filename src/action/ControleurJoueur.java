@@ -21,6 +21,8 @@ public class ControleurJoueur {
 	//private VueAjouterJoueur vueAjouterJoueur = null;
 	private VueEditerJoueur vueEditerJoueur = null;
 	private JoueurDAO joueurDAO = null;
+
+	private int idJoueurConceptuel;
 	
 	private ControleurJoueur()
 	{
@@ -113,6 +115,7 @@ public class ControleurJoueur {
 		Joueur joueur = this.joueurDAO.rapporterJoueur(idJoueur);
 		this.vueEditerJoueur.afficherJoueur(this.joueurDAO.rapporterJoueur(idJoueur));
 		this.navigateur.naviguerVersVueEditerJoueur();
+		this.idJoueurConceptuel = idJoueur;
 
 
 		/* Debut mockup
@@ -148,8 +151,14 @@ public class ControleurJoueur {
         System.out.println("ControleurRobot.notifierEnregistrerAjoutClub()");
 	    Club club = this.navigateur.getVueAjouterClub().demanderClub();
         System.out.println(club.getNom());
+        club.setId_joueur(idJoueurConceptuel);
 
 	    ClubDAO clubDAO = new ClubDAO();
 	    clubDAO.ajouterClub(club);
+
+	    Joueur joueur = new Joueur("");
+	    joueur.setId(idJoueurConceptuel);
+	    this.navigateur.getVueEditerJoueur().afficheListeClub(accesseurClub.listerClubsParJoueurs(joueur));
+	    this.navigateur.naviguerVersVueEditerJoueur();
     }
 }
