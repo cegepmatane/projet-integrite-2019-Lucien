@@ -111,6 +111,7 @@ public class VueEditerJoueur extends Scene {
 			actionEditerClub.setUserData(0);
 			actionEditerClub.setOnAction(evenement -> {
 				int id = (int)((Button)evenement.getSource()).getUserData();
+				controleur.notifierNaviguerEditerClub(id);
 			});
 			this.grilleClubs.add(new Label(club.getNom()), 0, rangee);
 			this.grilleClubs.add(actionEditerClub, 1, rangee++);

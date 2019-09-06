@@ -20,6 +20,7 @@ public class ControleurJoueur {
 	private VueAjouterClub vueAjouterClub;
 	//private VueAjouterJoueur vueAjouterJoueur = null;
 	private VueEditerJoueur vueEditerJoueur = null;
+	private VueEditerClub vueEditerClub = null;
 	private JoueurDAO joueurDAO = null;
 
 	private int idJoueurConceptuel;
@@ -38,6 +39,7 @@ public class ControleurJoueur {
 		this.vueListeJoueur = navigateur.getVueListeJoueur();
 		this.vueEditerJoueur = navigateur.getVueEditerJoueur();
 		this.vueAjouterClub = navigateur.getVueAjouterClub();
+		this.vueEditerClub = navigateur.getVueEditerClub();
 						
 		//// TEST ////
 		Joueur joueur = new Joueur("Dolly", "Grise", "20 kg", "5 juin 2015");
@@ -56,7 +58,8 @@ public class ControleurJoueur {
 		//this.vueEditerJoueur.afficherListeDistinction(this.distinctionDAO.listerDistinctions());
 
 		//this.naviguerVersVueAjouterClub();
-		
+
+		this.navigateur.naviguerVersVueListeJoueur();
 	}
 	
 	// SINGLETON DEBUT
@@ -106,6 +109,11 @@ public class ControleurJoueur {
 	{
 		System.out.println("ControleurJoueur.notifierNaviguerAjouterJoueur()");
 		this.navigateur.naviguerVersVueAjouterJoueur();
+	}
+
+	public void notifierNaviguerEditerClub(int idProduit) {
+		this.navigateur.getVueEditerJoueur();
+		this.navigateur.naviguerVersVueAjouterClub();
 	}
 	
 	public void notifierNaviguerEditerJoueur(int idJoueur)

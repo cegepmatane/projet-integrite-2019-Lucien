@@ -14,6 +14,7 @@ public class NavigateurDesVues extends Application{
 	private VueEditerJoueur vueEditerJoueur = null;
 
 	private VueAjouterClub vueAjouterClub = null;
+	private VueEditerClub vueEditerClub = null;
 
 	private ControleurJoueur controleur = null;
 	
@@ -24,6 +25,7 @@ public class NavigateurDesVues extends Application{
 		this.vueAjouterJoueur = new VueAjouterJoueur();
 		this.vueEditerJoueur = new VueEditerJoueur();
 		this.vueAjouterClub = new VueAjouterClub();
+		this.vueEditerClub = new VueEditerClub();
 	}
 
 	@Override
@@ -40,6 +42,7 @@ public class NavigateurDesVues extends Application{
 		this.vueAjouterJoueur.setControleur(controleur);
 		this.vueEditerJoueur.setControleur(controleur);
 		this.vueAjouterClub.setControleur(controleur);
+		this.vueEditerClub.setControleur(controleur);
 	}	
 	
 	public VueListeJoueur getVueListeJoueur() {
@@ -60,6 +63,10 @@ public class NavigateurDesVues extends Application{
 
 	public VueAjouterClub getVueAjouterClub() {
 		return vueAjouterClub;
+	}
+
+	public VueEditerClub getVueEditerClub() {
+		return vueEditerClub;
 	}
 
 	public void setVueAjouterClub(VueAjouterClub vueAjouterClub) {
@@ -94,5 +101,9 @@ public class NavigateurDesVues extends Application{
 		stade.setScene(this.vueAjouterClub);
 		stade.show();
 	}
-	
+
+	public void naviguerVersVueEditerClub() {
+		stade.setScene(this.vueEditerClub);
+		stade.show();
+	}
 }
