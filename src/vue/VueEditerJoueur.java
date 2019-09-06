@@ -107,8 +107,13 @@ public class VueEditerJoueur extends Scene {
 		int rangee = 0;
 		for (Club club :
 				listeClubs) {
-			System.out.println(club.getNom());
-			this.grilleClubs.add(new Label(club.getNom()), 0, rangee++);
+			Button actionEditerClub = new Button("Editer");
+			actionEditerClub.setUserData(0);
+			actionEditerClub.setOnAction(evenement -> {
+				int id = (int)((Button)evenement.getSource()).getUserData();
+			});
+			this.grilleClubs.add(new Label(club.getNom()), 0, rangee);
+			this.grilleClubs.add(actionEditerClub, 1, rangee++);
 		}
 	}
 }
