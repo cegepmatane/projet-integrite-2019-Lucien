@@ -108,7 +108,7 @@ public class VueEditerJoueur extends Scene {
 		for (Club club :
 				listeClubs) {
 			Button actionEditerClub = new Button("Editer");
-			actionEditerClub.setUserData(0);
+			actionEditerClub.setUserData(club.getId());
 			actionEditerClub.setOnAction(evenement -> {
 				int id = (int)((Button)evenement.getSource()).getUserData();
 				controleur.notifierNaviguerEditerClub(id);

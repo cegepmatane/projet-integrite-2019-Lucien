@@ -52,11 +52,14 @@ public class ClubDAO {
 
             while (curseurClubs.next()) {
                 Club club = new Club();
+
+                int id = Integer.parseInt(curseurClubs.getString("id"));
                 String nom = curseurClubs.getString("nom");
                 String dirigeant = curseurClubs.getString("dirigeant");
                 String adresse = curseurClubs.getString("adresse");
                 String telephone = curseurClubs.getString("telephone");
 
+                club.setId(id);
                 club.setNom(nom);
                 club.setDirigeant(dirigeant);
                 club.setAdresse(adresse);

@@ -2,6 +2,7 @@ package modele;
 
 public class Club {
 
+    protected int id;
     protected String nom;
     protected String dirigeant;
     protected String adresse;
@@ -12,7 +13,7 @@ public class Club {
 
     }
 
-    public Club(String nom, String dirigeant, String adresse, String telephon) {
+    public Club(String nom, String dirigeant, String adresse, String telephone) {
         this.nom = nom;
         this.dirigeant = dirigeant;
         this.adresse = adresse;
@@ -57,5 +58,13 @@ public class Club {
 
     public void setId_joueur(int id_joueur) {
         this.id_joueur = id_joueur;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

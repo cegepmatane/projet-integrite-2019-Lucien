@@ -113,7 +113,7 @@ public class ControleurJoueur {
 
 	public void notifierNaviguerEditerClub(int idProduit) {
 		this.navigateur.getVueEditerJoueur();
-		this.navigateur.naviguerVersVueAjouterClub();
+		this.navigateur.naviguerVersVueEditerClub();
 	}
 	
 	public void notifierNaviguerEditerJoueur(int idJoueur)
