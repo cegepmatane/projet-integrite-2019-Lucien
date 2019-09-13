@@ -111,8 +111,10 @@ public class ControleurJoueur {
 		this.navigateur.naviguerVersVueAjouterJoueur();
 	}
 
-	public void notifierNaviguerEditerClub(int idProduit) {
-		this.navigateur.getVueEditerJoueur();
+	public void notifierNaviguerEditerClub(int id) {
+		ClubDAO clubDAO = new ClubDAO();
+		Club club = clubDAO.rapporterClub(id);
+		this.navigateur.getVueEditerClub().afficherClub(club);
 		this.navigateur.naviguerVersVueEditerClub();
 	}
 	

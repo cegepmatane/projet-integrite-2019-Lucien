@@ -75,19 +75,45 @@ public class ClubDAO {
     }
 
     public void ajouterClub(Club club) {
-        PreparedStatement requeteAjouterConcepteur = null;
+        PreparedStatement requeteAjouterClub = null;
         try {
-            requeteAjouterConcepteur = connection.prepareStatement("INSERT INTO club(nom, dirigeant, adresse, telephone, id_joueur)" +
+            requeteAjouterClub = connection.prepareStatement("INSERT INTO club(nom, dirigeant, adresse, telephone, id_joueur)" +
                     "VALUES (?,?,?,?,?)");
-            requeteAjouterConcepteur.setString(1, club.getNom());
-            requeteAjouterConcepteur.setString(2, club.getDirigeant());
-            requeteAjouterConcepteur.setString(3, club.getAdresse());
-            requeteAjouterConcepteur.setString(4, club.getTelephone());
-            requeteAjouterConcepteur.setInt(5, club.getId_joueur());
+            requeteAjouterClub.setString(1, club.getNom());
+            requeteAjouterClub.setString(2, club.getDirigeant());
+            requeteAjouterClub.setString(3, club.getAdresse());
+            requeteAjouterClub.setString(4, club.getTelephone());
+            requeteAjouterClub.setInt(5, club.getId_joueur());
 
-            requeteAjouterConcepteur.execute();
+            requeteAjouterClub.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Club rapporterClub(int id)
+    {
+        System.out.println("ClubDAO.rapporterClub("+id+")");
+        Club club = new Club();
+
+        try {
+
+            Statement requete = connection.createStatement();
+            ResultSet curseurClubs = requete.executeQuery("SELECT * FROM club WHERE id = " + id);
+            curseurClubs.next();
+            String nom = curseurClubs.getString("nom");
+            String dirigeant = curseurClubs.getString("dirigeant");
+            String adresse = curseurClubs.getString("adresse");
+            String telephone = curseurClubs.getString("telephone");
+            club.setId(id);
+            club.setNom(nom);
+            club.setDirigeant(dirigeant);
+            club.setAdresse(adresse);
+            club.setTelephone(telephone);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return club;
     }
 }

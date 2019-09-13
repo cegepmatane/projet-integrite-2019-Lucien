@@ -70,4 +70,12 @@ public class VueEditerClub extends Scene {
     public void setControleur(ControleurJoueur controleur) {
         this.controleur = controleur;
     }
+
+    public void afficherClub(Club concepteur)
+    {
+        this.valeurNom.setText(concepteur.getNom());
+        this.valeurDirigeant.setText(concepteur.getDirigeant());
+        this.valeurAdresse.setText(concepteur.getAdresse());
+        this.valeurTelephone.setText(concepteur.getTelephone());
+    }
 }
