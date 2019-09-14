@@ -16,7 +16,7 @@ public class VueAjouterClub extends Scene {
     protected TextField valeurNom;
     protected TextField valeurDirigeant;
     protected TextField valeurAdresse;
-    protected TextField valeurTelephone;
+    protected TextField valeurDateCreation;
     protected TextField valeurIdJoueur;
 
     private ControleurJoueur controleur = null;
@@ -51,9 +51,9 @@ public class VueAjouterClub extends Scene {
         grilleJoueur.add(new Label("Adresse : "), 0, 2);
         grilleJoueur.add(valeurAdresse, 1, 2);
 
-        valeurTelephone = new TextField("");
-        grilleJoueur.add(new Label("Telephone : "), 0, 3);
-        grilleJoueur.add(valeurTelephone, 1, 3);
+        valeurDateCreation = new TextField("");
+        grilleJoueur.add(new Label("DateCreation : "), 0, 3);
+        grilleJoueur.add(valeurDateCreation, 1, 3);
 
         // Todo : retirer les textes magiques
         panneau.getChildren().add(new Label("Ajouter un joueur")); // Todo : cr?er un sous-type de Label ou Text pour les titres
@@ -66,7 +66,7 @@ public class VueAjouterClub extends Scene {
         Club club = new Club(this.valeurNom.getText(),
                 this.valeurDirigeant.getText(),
                 this.valeurAdresse.getText(),
-                this.valeurTelephone.getText()
+                Integer.parseInt(this.valeurDateCreation.getText())
         );
         return club;
     }

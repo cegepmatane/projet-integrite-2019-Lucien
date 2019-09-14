@@ -22,8 +22,6 @@ public class ControleurJoueur {
 	private VueEditerJoueur vueEditerJoueur = null;
 	private VueEditerClub vueEditerClub = null;
 	private JoueurDAO joueurDAO = null;
-
-	private int idJoueurConceptuel;
 	
 	private ControleurJoueur()
 	{
@@ -99,7 +97,7 @@ public class ControleurJoueur {
 		System.out.println("ControleurJoueur.notifierEnregistrerJoueur()");
 		Joueur joueur = this.navigateur.getVueEditerJoueur().demanderJoueur();
 		this.joueurDAO.modifierJoueur(joueur);
-		this.vueListeJoueur.afficherListeJoueur(this.joueurDAO.listerJoueurs()); // TODO optimiser
+		this.vueListeJoueur.afficherListeJoueur(this.joueurDAO.listerJoueurs());
 		this.navigateur.naviguerVersVueListeJoueur();		
 	}
 	
@@ -115,7 +113,8 @@ public class ControleurJoueur {
 		this.navigateur.getVueEditerClub().afficherClub(club);
 		this.navigateur.naviguerVersVueEditerClub();
 	}
-	
+
+	static private int idJoueurContextuel = 0;
 	public void notifierNaviguerEditerJoueur(int idJoueur)
 	{
 		System.out.println("ControleurJoueur.notifierEditerJoueur("+idJoueur+")");
@@ -123,7 +122,7 @@ public class ControleurJoueur {
 		Joueur joueur = this.joueurDAO.rapporterJoueur(idJoueur);
 		this.vueEditerJoueur.afficherJoueur(this.joueurDAO.rapporterJoueur(idJoueur));
 		this.navigateur.naviguerVersVueEditerJoueur();
-		this.idJoueurConceptuel = idJoueur;
+		this.idJoueurContextuel = idJoueur;
 
 
 		/* Debut mockup
@@ -155,19 +154,20 @@ public class ControleurJoueur {
 	    this.navigateur.naviguerVersVueAjouterClub();
     }
 
+
 	public void notifierEnregistrerAjoutClub() {
-        System.out.println("ControleurRobot.notifierEnregistrerAjoutClub()");
-	    Club club = this.navigateur.getVueAjouterClub().demanderClub();
-        System.out.println(club.getNom());
-        club.setId_joueur(idJoueurConceptuel);
+        System.out.println("ControleurJoueur.notifierEnregistrerAjoutClub()");
+		Club club = this.navigateur.getVueAjouterClub().demanderClub();
+		club.setId_joueur(idJoueurContextuel);
+		System.out.println(club.getNom());
 
-	    ClubDAO clubDAO = new ClubDAO();
-	    clubDAO.ajouterClub(club);
+		ClubDAO clubDAO = new ClubDAO();
+		clubDAO.ajouterClub(club);
 
-	    Joueur joueur = new Joueur("");
-	    joueur.setId(idJoueurConceptuel);
-	    this.navigateur.getVueEditerJoueur().afficheListeClub(accesseurClub.listerClubsParJoueurs(joueur));
-	    this.navigateur.naviguerVersVueEditerJoueur();
+		Joueur joueur = new Joueur("");
+		joueur.setId(idJoueurContextuel);
+		this.navigateur.getVueEditerJoueur().afficheListeClub(accesseurClub.listerClubsParJoueurs(joueur)); // optimiser
+		this.navigateur.naviguerVersVueEditerJoueur();
     }
 
 	public void notifierEnregistrerClub()

@@ -70,14 +70,16 @@ public class VueEditerClub extends Scene {
         this.controleur = controleur;
     }
 
+    private int idJoueur = 0;
     private int idClub = 0;
     public void afficherClub(Club club)
     {
         this.idClub = club.getId();
+        this.idJoueur = club.getId_joueur();
         this.valeurNom.setText(club.getNom());
         this.valeurDirigeant.setText(club.getDirigeant());
         this.valeurAdresse.setText(club.getAdresse());
-        this.valeurTelephone.setText(club.getTelephone());
+        this.valeurTelephone.setText(club.getdateCreation() + "");
     }
 
     public Club demanderClubs()
@@ -86,7 +88,8 @@ public class VueEditerClub extends Scene {
         club.setNom(this.valeurNom.getText());
         club.setDirigeant(this.valeurDirigeant.getText());
         club.setAdresse(this.valeurAdresse.getText());
-        club.setTelephone(this.valeurTelephone.getText());
+        club.setdateCreation(Integer.parseInt(this.valeurTelephone.getText()));
+        club.setId_joueur(this.idJoueur);
         club.setId(this.idClub);
         return club;
     }

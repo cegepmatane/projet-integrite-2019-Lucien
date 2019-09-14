@@ -27,6 +27,7 @@ public class VueEditerJoueur extends Scene {
 	protected Button actionAjouterClub = null;
 	
 	private int idJoueur = 0;
+	private int idClub = 0;
 	private GridPane grilleClubs = null;
 	
 	public VueEditerJoueur()  {
@@ -106,6 +107,7 @@ public class VueEditerJoueur extends Scene {
 	public void afficheListeClub(List<Club> listeClubs) {
 		this.grilleClubs.getChildren().clear();
 		int rangee = 0;
+		System.out.println(listeClubs.size());
 		for (Club club :
 				listeClubs) {
 			Button actionEditerClub = new Button("Editer");

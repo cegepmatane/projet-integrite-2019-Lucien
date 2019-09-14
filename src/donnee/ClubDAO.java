@@ -27,12 +27,12 @@ public class ClubDAO {
                 String nom = curseurClub.getString("nom");
                 String dirigeant = curseurClub.getString("dirigeant");
                 String adresse = curseurClub.getString("adresse");
-                String telephone = curseurClub.getString("telephone");
+                int dateCreation = curseurClub.getInt("telephone");
 
                 club.setNom(nom);
                 club.setDirigeant(dirigeant);
                 club.setAdresse(adresse);
-                club.setTelephone(telephone);
+                club.setdateCreation(dateCreation);
 
                 listClub.add(club);
             }
@@ -43,46 +43,48 @@ public class ClubDAO {
     }
 
     public List<Club> listerClubsParJoueurs(Joueur joueur) {
-        List<Club> listClub = new ArrayList<Club>();
-        Statement requeteListeClubs;
+        System.out.println("ClubDAO.listerClubsParJoueur(joueur)");
+        List<Club> listeClubs = new ArrayList<Club>();
 
+        Statement requeteListeClubs;
         try {
             requeteListeClubs = this.connection.createStatement();
-            ResultSet curseurClubs = requeteListeClubs.executeQuery("SELECT * FROM club WHERE id_joueur = " + joueur.getId());
-
-            while (curseurClubs.next()) {
+            ResultSet curseurClubs = requeteListeClubs.executeQuery("SELECT * from club WHERE id_joueur = " + joueur.getId());
+            System.out.println("SELECT * from club WHERE id_joueur = " + joueur.getId());
+            while(curseurClubs.next())
+            {
                 Club club = new Club();
 
                 int id = Integer.parseInt(curseurClubs.getString("id"));
                 String nom = curseurClubs.getString("nom");
                 String dirigeant = curseurClubs.getString("dirigeant");
                 String adresse = curseurClubs.getString("adresse");
-                String telephone = curseurClubs.getString("telephone");
-
+                int dateCreation = curseurClubs.getInt("dateCreation");
                 club.setId(id);
                 club.setNom(nom);
                 club.setDirigeant(dirigeant);
                 club.setAdresse(adresse);
-                club.setTelephone(telephone);
+                club.setdateCreation(dateCreation);
 
-                listClub.add(club);
+                listeClubs.add(club);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return listClub;
+        System.out.println(listeClubs.size() + "slt");
+        return listeClubs;
     }
 
     public void ajouterClub(Club club) {
         PreparedStatement requeteAjouterClub = null;
         try {
-            requeteAjouterClub = connection.prepareStatement("INSERT INTO club(nom, dirigeant, adresse, telephone, id_joueur)" +
+            requeteAjouterClub = connection.prepareStatement("INSERT INTO club(nom, dirigeant, adresse, dateCreation, id_joueur)" +
                     "VALUES (?,?,?,?,?)");
             requeteAjouterClub.setString(1, club.getNom());
             requeteAjouterClub.setString(2, club.getDirigeant());
             requeteAjouterClub.setString(3, club.getAdresse());
-            requeteAjouterClub.setString(4, club.getTelephone());
+            requeteAjouterClub.setInt(4, club.getdateCreation());
             requeteAjouterClub.setInt(5, club.getId_joueur());
 
             requeteAjouterClub.execute();
@@ -104,12 +106,13 @@ public class ClubDAO {
             String nom = curseurClubs.getString("nom");
             String dirigeant = curseurClubs.getString("dirigeant");
             String adresse = curseurClubs.getString("adresse");
-            String telephone = curseurClubs.getString("telephone");
+            int dateCreation = curseurClubs.getInt("dateCreation");
             club.setId(id);
+            club.setId_joueur(id);
             club.setNom(nom);
             club.setDirigeant(dirigeant);
             club.setAdresse(adresse);
-            club.setTelephone(telephone);
+            club.setdateCreation(dateCreation);
         } catch (SQLException e) {
             e.printStackTrace();
         }
