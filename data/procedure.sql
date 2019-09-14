@@ -1,50 +1,52 @@
---drop trigger evenementEditerJoueur On joueur;
-CREATE TRIGGER evenementEditerJoueur
-	BEFORE UPDATE ON joueur
-		FOR EACH ROW EXECUTE PROCEDURE
-		journaliserEditerJoueur();
+-- Table: public.club
 
-CREATE or REPLACE FUNCTION journaliserEditerJoueur()
-RETURNS trigger
-LANGUAGE 'plpgsql'
+-- DROP TABLE public.club;
 
+CREATE TABLE public.club
+(
+    id integer NOT NULL DEFAULT nextval('"Club_id_seq"'::regclass),
+    nom text COLLATE pg_catalog."default",
+    dirigeant text COLLATE pg_catalog."default",
+    adresse text COLLATE pg_catalog."default",
+    id_joueur integer NOT NULL,
+    datecreation integer,
+    CONSTRAINT "Club_pkey" PRIMARY KEY (id),
+    CONSTRAINT club_id_joueur_fkey FOREIGN KEY (id_joueur)
+        REFERENCES public.joueur (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+    WITH (
+        OIDS = FALSE
+    )
+    TABLESPACE pg_default;
 
-AS $$
-DECLARE
-    descriptionNouveau text;
-	descriptionAncien text;
-	description text;
-BEGIN
-	descriptionAncien := OLD.nom;
-	descriptionNouveau := NEW.nom;
-	description := descriptionAncien || '=>' || descriptionNouveau;
-	insert into journal(moment, operation, objet, description) VALUES(NOW(), 'edition', 'joueur', 'test');
-    return NEW;
-END
-$$
+ALTER TABLE public.club
+    OWNER to postgres;
 
-CREATE or REPLACE FUNCTION journaliserAjoutJoueur()
-RETURNS trigger
-LANGUAGE 'plpgsql'
-AS $$
-DECLARE
-    description text;
-BEGIN
-	description := NEW.nom;
-	insert into journal(moment, operation, objet, description) VALUES(NOW(), 'ajout', 'robot', 'test');
-    return NEW;
-END
-$$
+-- Trigger: evenementajoutclub
 
+-- DROP TRIGGER evenementajoutclub ON public.club;
 
+CREATE TRIGGER evenementajoutclub
+    BEFORE INSERT
+    ON public.club
+    FOR EACH ROW
+EXECUTE PROCEDURE public.journaliserajoutclub();
 
-CREATE TRIGGER evenementAjoutJoueur
-	BEFORE INSERT ON joueur
-		FOR EACH ROW EXECUTE PROCEDURE
-		journaliserAjoutJoueur();
+-- Trigger: evenementediterclub
 
+-- DROP TRIGGER evenementediterclub ON public.club;
 
+CREATE TRIGGER evenementediterclub
+    BEFORE UPDATE
+    ON public.club
+    FOR EACH ROW
+EXECUTE PROCEDURE public.journaliserediterclub();
 
+-- Trigger: evenementsuprimmerclub
+
+-- DROP TRIGGER evenementsuprimmerclub ON public.club;
 
 CREATE TRIGGER evenementsuprimmerclub
     BEFORE DELETE
@@ -54,26 +56,64 @@ EXECUTE PROCEDURE public.journalisersuprimmerclub();
 
 
 
+-- Table: public.joueur
 
-CREATE FUNCTION public.journalisersuprimmerjoueur()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
-DECLARE
-    description text;
-BEGIN
-    description := NEW.nom;
-    insert into journal(moment, operation, objet, description) VALUES(NOW(), 'supression', 'robot', 'test');
-    return NEW;
-END
-$BODY$;
+-- DROP TABLE public.joueur;
 
-ALTER FUNCTION public.journalisersuprimmerjoueur()
-    OWNER TO postgres;
+CREATE TABLE public.joueur
+(
+    id integer NOT NULL DEFAULT nextval('joueur_id_seq'::regclass),
+    nom text COLLATE pg_catalog."default" NOT NULL,
+    poids text COLLATE pg_catalog."default" NOT NULL,
+    naissance text COLLATE pg_catalog."default" NOT NULL,
+    age integer,
+    id_joueur integer,
+    CONSTRAINT joueur_pkey PRIMARY KEY (id)
+)
+    WITH (
+        OIDS = FALSE
+    )
+    TABLESPACE pg_default;
+
+ALTER TABLE public.joueur
+    OWNER to postgres;
+
+-- Trigger: evenementajoutjoueur
+
+-- DROP TRIGGER evenementajoutjoueur ON public.joueur;
+
+CREATE TRIGGER evenementajoutjoueur
+    BEFORE INSERT
+    ON public.joueur
+    FOR EACH ROW
+EXECUTE PROCEDURE public.journaliserajoutjoueur();
+
+-- Trigger: evenementediterjoueur
+
+-- DROP TRIGGER evenementediterjoueur ON public.joueur;
+
+CREATE TRIGGER evenementediterjoueur
+    BEFORE UPDATE
+    ON public.joueur
+    FOR EACH ROW
+EXECUTE PROCEDURE public.journaliserediterjoueur();
+
+-- Trigger: evenementsuprimmerjoueur
+
+-- DROP TRIGGER evenementsuprimmerjoueur ON public.joueur;
+
+CREATE TRIGGER evenementsuprimmerjoueur
+    BEFORE DELETE
+    ON public.joueur
+    FOR EACH ROW
+EXECUTE PROCEDURE public.journalisersuprimmerjoueur();
 
 
+
+
+-- FUNCTION: public.journaliserajoutclub()
+
+-- DROP FUNCTION public.journaliserajoutclub();
 
 CREATE FUNCTION public.journaliserajoutclub()
     RETURNS trigger
@@ -95,12 +135,33 @@ ALTER FUNCTION public.journaliserajoutclub()
 
 
 
+-- FUNCTION: public.journaliserajoutjoueur()
 
-CREATE TRIGGER evenementajoutclub
-    BEFORE INSERT
-    ON public.club
-    FOR EACH ROW
-EXECUTE PROCEDURE public.journaliserajoutclub();
+-- DROP FUNCTION public.journaliserajoutjoueur();
+
+CREATE FUNCTION public.journaliserajoutjoueur()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+DECLARE
+    description text;
+BEGIN
+    description := NEW.nom;
+    insert into journal(moment, operation, objet, description) VALUES(NOW(), 'ajout', 'robot', 'test');
+    return NEW;
+END
+$BODY$;
+
+ALTER FUNCTION public.journaliserajoutjoueur()
+    OWNER TO postgres;
+
+
+
+-- FUNCTION: public.journaliserediterclub()
+
+-- DROP FUNCTION public.journaliserediterclub();
 
 CREATE FUNCTION public.journaliserediterclub()
     RETURNS trigger
@@ -127,11 +188,38 @@ ALTER FUNCTION public.journaliserediterclub()
 
 
 
-CREATE TRIGGER evenementediterclub
-    BEFORE UPDATE
-    ON public.club
-    FOR EACH ROW
-EXECUTE PROCEDURE public.journaliserediterclub();
+-- FUNCTION: public.journaliserediterjoueur()
+
+-- DROP FUNCTION public.journaliserediterjoueur();
+
+CREATE FUNCTION public.journaliserediterjoueur()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+DECLARE
+    descriptionNouveau text;
+    descriptionAncien text;
+    description text;
+BEGIN
+    descriptionAncien := OLD.nom;
+    descriptionNouveau := NEW.nom;
+    description := descriptionAncien || '=>' || descriptionNouveau;
+    insert into journal(moment, operation, objet, description) VALUES(NOW(), 'edition', 'robot', 'test');
+    return NEW;
+END
+$BODY$;
+
+ALTER FUNCTION public.journaliserediterjoueur()
+    OWNER TO postgres;
+
+
+
+
+-- FUNCTION: public.journalisersuprimmerclub()
+
+-- DROP FUNCTION public.journalisersuprimmerclub();
 
 CREATE FUNCTION public.journalisersuprimmerclub()
     RETURNS trigger
@@ -153,52 +241,24 @@ ALTER FUNCTION public.journalisersuprimmerclub()
 
 
 
+-- FUNCTION: public.journalisersuprimmerjoueur()
 
-CREATE TRIGGER evenementsuprimmerclub
-    BEFORE DELETE
-    ON public.club
-    FOR EACH ROW
-EXECUTE PROCEDURE public.journalisersuprimmerclub();
+-- DROP FUNCTION public.journalisersuprimmerjoueur();
 
-
--- FUNCTION: public.ajouterstatistique()
-
--- DROP FUNCTION public.ajouterstatistique();
-
-CREATE OR REPLACE FUNCTION public.ajouterstatistique(
-)
-    RETURNS void
+CREATE FUNCTION public.journalisersuprimmerjoueur()
+    RETURNS trigger
     LANGUAGE 'plpgsql'
-
     COST 100
-    VOLATILE
+    VOLATILE NOT LEAKPROOF
 AS $BODY$
 DECLARE
-
+    description text;
 BEGIN
-    insert into joueur_statistiques(moment, nombre, ageMoyen) VALUES(NOW(), (SELECT COUNT(id) from joueur), (SELECT AVG(age) from joueur));
+    description := NEW.nom;
+    insert into journal(moment, operation, objet, description) VALUES(NOW(), 'supression', 'robot', 'test');
+    return NEW;
 END
 $BODY$;
 
-
--- FUNCTION: public.ajouterstatistique()
-
--- DROP FUNCTION public.ajouterstatistique();
-
-CREATE OR REPLACE FUNCTION public.ajouterstatistiqueclub(
-)
-    RETURNS void
-    LANGUAGE 'plpgsql'
-
-    COST 100
-    VOLATILE
-AS $BODY$
-DECLARE
-
-BEGIN
-    insert into club_statistiques(moment, nombre, date_moyenne) VALUES(NOW(), (SELECT COUNT(id) from club), (SELECT AVG(datecreation) from club));
-END
-$BODY$;
-
-ALTER FUNCTION public.ajouterstatistiqueclub()
+ALTER FUNCTION public.journalisersuprimmerjoueur()
     OWNER TO postgres;
