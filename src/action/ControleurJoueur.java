@@ -42,7 +42,7 @@ public class ControleurJoueur {
 		this.vueEditerClub = navigateur.getVueEditerClub();
 						
 		//// TEST ////
-		Joueur joueur = new Joueur("Dolly", "Grise", "20 kg", "5 juin 2015");
+		Joueur joueur = new Joueur("Dolly", 18, "20 kg", "5 juin 2015");
 		this.vueJoueur.afficherJoueur(joueur); // Appel de ma fonction avant de la programmer (pour tester à mesure)
 		
 		this.navigateur.naviguerVersVueJoueur();
@@ -58,8 +58,6 @@ public class ControleurJoueur {
 		//this.vueEditerJoueur.afficherListeDistinction(this.distinctionDAO.listerDistinctions());
 
 		//this.naviguerVersVueAjouterClub();
-
-		this.navigateur.naviguerVersVueListeJoueur();
 	}
 	
 	// SINGLETON DEBUT
@@ -171,4 +169,17 @@ public class ControleurJoueur {
 	    this.navigateur.getVueEditerJoueur().afficheListeClub(accesseurClub.listerClubsParJoueurs(joueur));
 	    this.navigateur.naviguerVersVueEditerJoueur();
     }
+
+	public void notifierEnregistrerClub()
+	{
+		System.out.println("ControleurJoueur.notifierEnregistrerClub()");
+		ClubDAO clubDAO = new ClubDAO(); // todo concentrer
+		Club club = this.navigateur.getVueEditerClub().demanderClubs();
+		//clubDAO.modifierClub(club)
+		// modifier affichage du club modifie - rafraichir la liste
+		Joueur joueur = new Joueur("");
+		joueur.setId(club.getId_joueur());
+		this.navigateur.getVueEditerJoueur().afficheListeClub(clubDAO.listerClubsParJoueurs(joueur));
+		this.navigateur.naviguerVersVueEditerJoueur();
+	}
 }

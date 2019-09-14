@@ -25,7 +25,6 @@ public class VueEditerClub extends Scene {
     protected Button actionEnregistrerClub = null;
     protected Button actionAjouterClub = null;
 
-    private int idClub = 0;
     private GridPane grilleClubs = null;
 
     public VueEditerClub()  {
@@ -40,7 +39,7 @@ public class VueEditerClub extends Scene {
 
             @Override
             public void handle(ActionEvent actionEvent) {
-
+                controleur.notifierEnregistrerClub();
             }});
 
         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
@@ -71,11 +70,24 @@ public class VueEditerClub extends Scene {
         this.controleur = controleur;
     }
 
-    public void afficherClub(Club concepteur)
+    private int idClub = 0;
+    public void afficherClub(Club club)
     {
-        this.valeurNom.setText(concepteur.getNom());
-        this.valeurDirigeant.setText(concepteur.getDirigeant());
-        this.valeurAdresse.setText(concepteur.getAdresse());
-        this.valeurTelephone.setText(concepteur.getTelephone());
+        this.idClub = club.getId();
+        this.valeurNom.setText(club.getNom());
+        this.valeurDirigeant.setText(club.getDirigeant());
+        this.valeurAdresse.setText(club.getAdresse());
+        this.valeurTelephone.setText(club.getTelephone());
+    }
+
+    public Club demanderClubs()
+    {
+        Club club = new Club();
+        club.setNom(this.valeurNom.getText());
+        club.setDirigeant(this.valeurDirigeant.getText());
+        club.setAdresse(this.valeurAdresse.getText());
+        club.setTelephone(this.valeurTelephone.getText());
+        club.setId(this.idClub);
+        return club;
     }
 }

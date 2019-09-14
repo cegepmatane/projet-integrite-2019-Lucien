@@ -40,7 +40,7 @@ public class VueJoueur extends Scene{
 	public void afficherJoueur(Joueur joueur)
 	{
 		this.valeurNom.setText(joueur.getNom());
-		this.valeurAge.setText(joueur.getAge());
+		this.valeurAge.setText(joueur.getAge() + "");
 		this.valeurPoids.setText(joueur.getPoids());
 		this.valeurNaissance.setText(joueur.getNaissance());
 	}

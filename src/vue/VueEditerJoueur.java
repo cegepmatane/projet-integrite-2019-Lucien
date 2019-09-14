@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import modele.Club;
 import modele.Joueur;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class VueEditerJoueur extends Scene {
@@ -83,7 +84,7 @@ public class VueEditerJoueur extends Scene {
 	{
 		this.idJoueur = joueur.getId();
 		this.valeurNom.setText(joueur.getNom());
-		this.valeurAge.setText(joueur.getAge());
+		this.valeurAge.setText(joueur.getAge() + "");
 		this.valeurPoids.setText(joueur.getPoids());
 		this.valeurNaissance.setText(joueur.getNaissance());
 	}
@@ -91,7 +92,7 @@ public class VueEditerJoueur extends Scene {
 	public Joueur demanderJoueur()
 	{
 		Joueur joueur = new Joueur(this.valeurNom.getText(),
-								this.valeurAge.getText(), 
+								Integer.parseInt(this.valeurAge.getText()),
 								this.valeurPoids.getText(), 
 								this.valeurNaissance.getText());
 		joueur.setId(idJoueur);

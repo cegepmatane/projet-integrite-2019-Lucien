@@ -61,7 +61,7 @@ public class VueAjouterJoueur extends Scene {
 	public Joueur demanderJoueur()
 	{
 		Joueur joueur = new Joueur(this.valeurNom.getText(),
-								this.valeurAge.getText(), 
+								Integer.parseInt(this.valeurAge.getText()),
 								this.valeurPoids.getText(), 
 								this.valeurNaissance.getText());
 		return joueur;

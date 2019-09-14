@@ -4,7 +4,7 @@ public class Joueur {
 
 	protected int id;
 	protected String nom;
-	protected String age;
+	protected int age;
 	protected String poids;
 	protected String naissance;
 	
@@ -18,18 +18,18 @@ public class Joueur {
 		super();
 		this.nom = nom;
 	}
-	public Joueur(String nom, String age) {
+	public Joueur(String nom, int age) {
 		super();
 		this.nom = nom;
 		this.age = age;
 	}
-	public Joueur(String nom, String age, String poids) {
+	public Joueur(String nom, int age, String poids) {
 		super();
 		this.nom = nom;
 		this.age = age;
 		this.poids = poids;
 	}
-	public Joueur(String nom, String age, String poids, String naissance) {
+	public Joueur(String nom, int age, String poids, String naissance) {
 		super();
 		this.nom = nom;
 		this.age = age;
@@ -42,10 +42,10 @@ public class Joueur {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	public String getNaissance() {

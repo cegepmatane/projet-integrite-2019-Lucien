@@ -26,8 +26,6 @@ $$
 CREATE or REPLACE FUNCTION journaliserAjoutJoueur()
 RETURNS trigger
 LANGUAGE 'plpgsql'
-
-
 AS $$
 DECLARE
     description text;
@@ -38,10 +36,14 @@ BEGIN
 END
 $$
 
+
+
 CREATE TRIGGER evenementAjoutJoueur
 	BEFORE INSERT ON joueur
 		FOR EACH ROW EXECUTE PROCEDURE
 		journaliserAjoutJoueur();
+
+
 
 
 CREATE TRIGGER evenementsuprimmerclub
@@ -49,6 +51,9 @@ CREATE TRIGGER evenementsuprimmerclub
     ON public.club
     FOR EACH ROW
 EXECUTE PROCEDURE public.journalisersuprimmerclub();
+
+
+
 
 CREATE FUNCTION public.journalisersuprimmerjoueur()
     RETURNS trigger
@@ -68,6 +73,8 @@ $BODY$;
 ALTER FUNCTION public.journalisersuprimmerjoueur()
     OWNER TO postgres;
 
+
+
 CREATE FUNCTION public.journaliserajoutclub()
     RETURNS trigger
     LANGUAGE 'plpgsql'
@@ -85,6 +92,9 @@ $BODY$;
 
 ALTER FUNCTION public.journaliserajoutclub()
     OWNER TO postgres;
+
+
+
 
 CREATE TRIGGER evenementajoutclub
     BEFORE INSERT
@@ -114,6 +124,9 @@ $BODY$;
 ALTER FUNCTION public.journaliserediterclub()
     OWNER TO postgres;
 
+
+
+
 CREATE TRIGGER evenementediterclub
     BEFORE UPDATE
     ON public.club
@@ -138,8 +151,31 @@ $BODY$;
 ALTER FUNCTION public.journalisersuprimmerclub()
     OWNER TO postgres;
 
+
+
+
 CREATE TRIGGER evenementsuprimmerclub
     BEFORE DELETE
     ON public.club
     FOR EACH ROW
 EXECUTE PROCEDURE public.journalisersuprimmerclub();
+
+
+-- FUNCTION: public.ajouterstatistique()
+
+-- DROP FUNCTION public.ajouterstatistique();
+
+CREATE OR REPLACE FUNCTION public.ajouterstatistique(
+)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+AS $BODY$
+DECLARE
+
+BEGIN
+    insert into joueur_statistiques(moment, nombre, ageMoyen) VALUES(NOW(), (SELECT COUNT(id) from joueur), (SELECT AVG(age) from joueur));
+END
+$BODY$;
