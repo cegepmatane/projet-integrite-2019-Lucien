@@ -179,3 +179,26 @@ BEGIN
     insert into joueur_statistiques(moment, nombre, ageMoyen) VALUES(NOW(), (SELECT COUNT(id) from joueur), (SELECT AVG(age) from joueur));
 END
 $BODY$;
+
+
+-- FUNCTION: public.ajouterstatistique()
+
+-- DROP FUNCTION public.ajouterstatistique();
+
+CREATE OR REPLACE FUNCTION public.ajouterstatistiqueclub(
+)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+AS $BODY$
+DECLARE
+
+BEGIN
+    insert into club_statistiques(moment, nombre, date_moyenne) VALUES(NOW(), (SELECT COUNT(id) from club), (SELECT AVG(datecreation) from club));
+END
+$BODY$;
+
+ALTER FUNCTION public.ajouterstatistiqueclub()
+    OWNER TO postgres;
