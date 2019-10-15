@@ -14,7 +14,7 @@ CREATE TABLE public.club
     CONSTRAINT club_id_joueur_fkey FOREIGN KEY (id_joueur)
         REFERENCES public.joueur (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
 )
     WITH (
         OIDS = FALSE
